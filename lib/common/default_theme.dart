@@ -30,8 +30,8 @@ final defaultTheme = MixThemeData(
     onDebugColor: const Color(0xFFFFFFFF), // White
   },
   radii: {
-    smallRadius: const Radius.circular(4.0),
-    largeRadius: const Radius.circular(8.0),
+    smallRadius: const Radius.circular(24.0),
+    largeRadius: const Radius.circular(48.0),
   },
   spaces: {
     smallSpace: 4.0,

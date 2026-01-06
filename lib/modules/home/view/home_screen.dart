@@ -1,3 +1,4 @@
+import 'package:bestelzuil/common/styles/button_style.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mix/mix.dart';
@@ -5,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../../common/theme_tokens.dart';
 import '../../../common/constants.dart';
+import '../../../common/widgets/button_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -33,6 +35,12 @@ class HomeScreen extends StatelessWidget {
               height: Constants.appBodyWidth(context),
             ),
             // The button
+            // Goes to the order page
+            Button(
+              onPressed: () => Navigator.pushNamed(context, '/order_screen'),
+              style: buttonStyle(context),
+              child: StyledText("Start uw bestelling"),
+            ),
           ],
         ),
       ),
