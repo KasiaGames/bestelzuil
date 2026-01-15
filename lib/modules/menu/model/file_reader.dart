@@ -1,20 +1,54 @@
+import 'dart:io';
+
 import 'package:android_x_storage/android_x_storage.dart';
 import 'package:flutter/services.dart';
+import 'package:path/path.dart' as p;
+
+import '../../../common/stack.dart';
 
 class FileReader {
   final _androidXStoragePlugin = AndroidXStorage();
 
-  String _documentsPath = "empty";
-  String _sdcardPath = "empty";
+  late String _documentsPath;
+  late String _sdcardPath;
+  late Directory _directory;
+  Stack<String> _visitedDirectorys = Stack<String>();
 
-  void init() {
-    _documents();
-    _sdcard();
+  Future<void> init() async {
+    await _documents();
+    await _sdcard();
+
+    if (_sdcardPath != "error") {
+      _directory = Directory(_sdcardPath);
+    } else {
+      _directory = Directory(_documentsPath);
+    }
   }
 
-  void test() {
-    print(_documentsPath);
-    print(_sdcardPath);
+  Future<void> test() async {
+    print("root folder");
+    for (var testString in await listContents()) {
+      print(testString);
+    }
+    enterDirectory("test");
+    print("test folder");
+    for (var testString in await listContents()) {
+      print(testString);
+    }
+  }
+
+  void enterDirectory(String path) {
+    _visitedDirectorys.push(_directory.path);
+    String fullPath = "${_directory.path}/$path";
+    _directory = Directory(fullPath);
+  }
+
+  Future<List<String>> listContents() async {
+    List<String> contents = [];
+    await for (var content in _directory.list()) {
+      contents.add(p.relative(content.path, from: _directory.path));
+    }
+    return contents;
   }
 
   Future<void> _documents() async {
