@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
             // The button
             // Goes to the order page
             Button(
-              onPressed: () => Navigator.pushNamed(context, '/order_screen'),
+              onPressed: () => Navigator.pushNamed(context, '/menu_screen'),
               style: buttonStyle(context),
               child: StyledText("Start uw bestelling"),
             ),

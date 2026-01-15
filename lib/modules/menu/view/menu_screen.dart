@@ -1,4 +1,5 @@
 import 'package:bestelzuil/common/styles/button_style.dart';
+import 'package:bestelzuil/modules/menu/model/file_reader.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mix/mix.dart';
@@ -8,8 +9,22 @@ import '../../../common/theme_tokens.dart';
 import '../../../common/constants.dart';
 import '../../../common/widgets/button_widget.dart';
 
-class OrderScreen extends StatelessWidget {
-  const OrderScreen({super.key});
+class MenuScreen extends StatefulWidget {
+  const MenuScreen({super.key});
+
+  @override
+  State<MenuScreen> createState() => _MenuScreenState();
+}
+
+class _MenuScreenState extends State<MenuScreen> {
+  late FileReader _fileReader;
+
+  @override
+  void initState() {
+    _fileReader = FileReader();
+    _fileReader.init();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +46,11 @@ class OrderScreen extends StatelessWidget {
               "Selecteer producten",
               style: h1style,
               textAlign: TextAlign.center,
+            ),
+            Button(
+              onPressed: _fileReader.test,
+              style: buttonStyle(context),
+              child: StyledText("test document and sdcardpath"),
             ),
           ],
         ),
